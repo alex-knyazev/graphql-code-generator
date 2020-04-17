@@ -110,7 +110,9 @@ export class TsVisitor<
   }
 
   protected wrapWithListType(str: string): string {
-    return `${this.config.immutableTypes ? 'ReadonlyArray' : 'Array'}<${str}>`;
+    const listType = this.config.immutableTypes ? 'ReadonlyArray' : 'Array';
+    const listItemType = this.config.wrapFieldDefinitions ? `FieldWrapper<${str}>` : str;
+    return `${listType}<${listItemType}>`;
   }
 
   NonNullType(node: NonNullTypeNode): string {
