@@ -1,117 +1,30 @@
 {
-  "private": true,
-  "scripts": {
-    "clean": "rimraf node_modules packages/{*,plugins/*/*,presets/*,utils/*}/node_modules",
-    "prebuild": "rimraf packages/{*,plugins/*/*,presets/*,utils/*}/dist",
-    "build": "tsc --project tsconfig.json && bob build",
-    "test": "jest --no-watchman",
-    "lint": "eslint --ext .ts .",
-    "prettier": "prettier --ignore-path .gitignore --write --list-different \"**/*.{ts,tsx,graphql,yml}\"",
-    "prettier:check": "prettier --ignore-path .gitignore --check \"**/*.{ts,tsx,graphql,yml}\"",
-    "types:check": "tsc --noEmit",
-    "test-and-build": "yarn build && yarn test",
-    "prerelease": "yarn test-and-build",
-    "prerelease:canary": "yarn test-and-build",
-    "release": "lerna publish --contents dist --exact --force-publish=\"*\"",
-    "release:canary": "lerna publish --contents dist --force-publish=\"*\" --canary --exact",
-    "ci:release:canary": "lerna publish --contents dist --force-publish=\"*\" --preid \"alpha-`git rev-parse --short HEAD`\" --canary --exact --yes",
-    "generate:examples": "node packages/graphql-codegen-cli/dist/bin.js --require dotenv/config dotenv_config_path=dev-test/.env --config ./dev-test/codegen.yml"
+  "name": "@graphql-codegen/typescript",
+  "version": "1.13.2",
+  "description": "GraphQL Code Generator plugin for generating TypeScript types",
+  "peerDependencies": {
+    "graphql": "^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dotansimha/graphql-code-generator.git",
+    "directory": "packages/plugins/typescript/typescript"
   },
-  "workspaces": {
-    "packages": [
-      "packages/*",
-      "packages/utils/*",
-      "packages/plugins/flow/*",
-      "packages/plugins/java/*",
-      "packages/plugins/c-sharp/*",
-      "packages/plugins/typescript/*",
-      "packages/plugins/other/*",
-      "packages/presets/*",
-      "website",
-      "website/live-demo"
-    ],
-    "nohoist": [
-      "**/@babel-*",
-      "**/@babel-*/**"
-    ]
+  "license": "MIT",
+  "main": "index.cjs.js",
+  "module": "index.esm.js",
+  "typings": "index.d.ts",
+  "typescript": {
+    "definition": "index.d.ts"
   },
-  "devDependencies": {
-    "auto-bind": "4.0.0",
-    "@graphql-toolkit/apollo-engine-loader": "0.10.4",
-    "@graphql-toolkit/code-file-loader": "0.10.4",
-    "@graphql-toolkit/common": "0.10.4",
-    "@graphql-toolkit/core": "0.10.4",
-    "@graphql-toolkit/git-loader": "0.10.4",
-    "@graphql-toolkit/github-loader": "0.10.4",
-    "@graphql-toolkit/graphql-file-loader": "0.10.4",
-    "@graphql-toolkit/json-file-loader": "0.10.4",
-    "@graphql-toolkit/prisma-loader": "0.10.4",
-    "@graphql-toolkit/url-loader": "0.10.4",
-    "tslib": "1.11.1",
-    "@apollo/react-common": "3.1.4",
-    "@apollo/react-components": "3.1.5",
-    "@apollo/react-hoc": "3.1.5",
-    "@apollo/react-hooks": "3.1.5",
-    "@babel/preset-typescript": "7.9.0",
-    "@types/common-tags": "1.8.0",
-    "@types/glob": "7.1.1",
-    "@types/jest": "25.2.1",
-    "@types/mkdirp": "1.0.0",
-    "@types/node": "10.17.19",
-    "@types/react": "16.9.34",
-    "@types/request": "2.48.4",
-    "bob-the-bundler": "1.0.0-rc.14",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "apollo-cache": "1.3.4",
-    "apollo-client": "2.6.8",
-    "apollo-link": "1.2.14",
-    "apollo-server": "2.12.0",
-    "apollo-utilities": "1.3.3",
-    "@typescript-eslint/eslint-plugin": "2.28.0",
-    "@typescript-eslint/parser": "2.28.0",
-    "eslint": "6.8.0",
-    "eslint-config-prettier": "6.10.1",
-    "eslint-config-standard": "14.1.1",
-    "eslint-plugin-import": "2.20.2",
-    "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-promise": "4.2.1",
-    "eslint-plugin-react-hooks": "3.0.0",
-    "eslint-plugin-standard": "4.0.1",
-    "flow-bin": "0.122.0",
-    "flow-parser": "0.123.0",
-    "graphql": "15.0.0",
-    "graphql-tag": "2.10.3",
-    "husky": "4.2.5",
-    "java-ast": "0.1.0",
-    "jest": "25.3.0",
-    "jest-docblock": "25.3.0",
-    "jest-junit": "10.0.0",
-    "lerna": "3.20.2",
-    "lint-staged": "10.1.3",
-    "lodash": "4.17.15",
-    "rimraf": "3.0.2",
-    "ts-jest": "25.4.0",
-    "stencil-apollo": "0.1.5",
-    "typescript": "3.8.3",
-    "urql": "1.9.6"
-  },
-  "lint-staged": {
-    "packages/**/src/**/*.{ts,tsx}": [
-      "eslint --fix"
-    ],
-    "**/*.{ts,tsx,graphql,yml}": [
-      "prettier --write"
-    ]
-  },
-  "resolutions": {
-    "graphql-language-service-interface": "2.4.0-alpha.7",
-    "**/apollo-language-server/graphql": "^15.0.0",
-    "**/@types/graphql-upload/graphql": "^15.0.0"
+  "dependencies": {
+    "@graphql-codegen/plugin-helpers": "1.13.2",
+    "@graphql-codegen/visitor-plugin-common": "1.13.2",
+    "auto-bind": "~4.0.0",
+    "tslib": "~1.11.1"
   }
+
+,"_resolved": "https://registry.npmjs.org/@graphql-codegen/typescript/-/typescript-1.13.2.tgz"
+,"_integrity": "sha512-LNUrFtiOFeF67rAa4VQRwqX0B6zKVtQUgzTwMkqEHGJQu9eICxBqn16P7CsOxXGuant/EHkltB0Ag6Tt2e8veQ=="
+,"_from": "@graphql-codegen/typescript@1.13.2"
 }
